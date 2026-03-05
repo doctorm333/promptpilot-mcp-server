@@ -1,0 +1,45 @@
+{
+  "name": "promptpilot-mcp-server",
+  "version": "1.0.0",
+  "description": "MCP server for PromptPilot.club — generate images, video, and audio via Pollinations API",
+  "type": "module",
+  "main": "build/index.js",
+  "bin": {
+    "promptpilot-mcp-server": "build/index.js"
+  },
+  "files": [
+    "build",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "start": "node build/index.js",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai",
+    "image-generation",
+    "video-generation",
+    "audio-generation",
+    "pollinations",
+    "claude",
+    "promptpilot"
+  ],
+  "author": "Dr. AI (https://promptpilot.club)",
+  "license": "MIT",
+  "homepage": "https://promptpilot.club",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/doctorm333/promptpilot-mcp-server"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.1",
+    "zod": "^3.24.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.0",
+    "@types/node": "^22.0.0"
+  }
+}
