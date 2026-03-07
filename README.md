@@ -11,7 +11,7 @@ Add to your Claude Code settings (`~/.claude/settings.json`):
   "mcpServers": {
     "promptpilot": {
       "command": "npx",
-      "args": ["-y", "promptpilot-mcp-server"]
+      "args": ["-y", "github:doctorm333/promptpilot-mcp-server"]
     }
   }
 }
@@ -24,7 +24,7 @@ Free models (Flux, Grok Video, etc.) work without an API key. For paid models, a
   "mcpServers": {
     "promptpilot": {
       "command": "npx",
-      "args": ["-y", "promptpilot-mcp-server"],
+      "args": ["-y", "github:doctorm333/promptpilot-mcp-server"],
       "env": {
         "POLLINATIONS_API_KEY": "your-key-here"
       }
