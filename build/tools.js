@@ -227,7 +227,7 @@ export async function handleGenerateVideo(args) {
     if (API_KEY)
         params.set("token", API_KEY);
     const encodedPrompt = encodeURIComponent(args.prompt);
-    const url = `https://gen.pollinations.ai/image/${encodedPrompt}?${params}`;
+    const url = `https://gen.pollinations.ai/video/${encodedPrompt}?${params}`;
     try {
         const resp = await fetch(url, {
             method: "HEAD",
