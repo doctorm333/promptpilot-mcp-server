@@ -148,7 +148,7 @@ Endpoints:
 - [promptpilot.club](https://promptpilot.club) — Web UI
 - [Pollinations AI](https://pollinations.ai) — Underlying model provider
 - [npm package](https://www.npmjs.com/package/promptpilot-mcp)
-- [GitHub](https://github.com/doctorm333/promptpilot-mcp)
+- [GitHub](https://github.com/doctorm333/promptpilot-mcp-server)
 
 ## License
 
