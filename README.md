@@ -1,102 +1,154 @@
 # PromptPilot MCP Server
 
-MCP (Model Context Protocol) server for [PromptPilot.club](https://promptpilot.club) — generate images, video, and audio via [Pollinations AI](https://pollinations.ai) directly from Claude Code, Cursor, or any MCP-compatible client.
+Generate images, video, and audio directly in Claude Code, Cursor, Windsurf, or any MCP-compatible AI agent.
 
-## Quick Start
+**20+ models** — Flux, GPT-Image-1, Imagen 4, Grok Imagine, Seedance, ElevenLabs TTS, and more.
+**Free models** work without an API key. Paid models require a [Pollinations](https://pollinations.ai) key.
 
-Add to your Claude Code settings (`~/.claude/settings.json`):
+---
+
+## Installation
+
+### Claude Code / Claude Desktop
 
 ```json
 {
   "mcpServers": {
     "promptpilot": {
       "command": "npx",
-      "args": ["-y", "github:doctorm333/promptpilot-mcp-server"]
+      "args": ["-y", "promptpilot-mcp-server"]
     }
   }
 }
 ```
 
-Free models (Flux, Grok Video, etc.) work without an API key. For paid models, add your [Pollinations API key](https://pollinations.ai):
-
+With Pollinations API key (for paid models):
 ```json
 {
   "mcpServers": {
     "promptpilot": {
       "command": "npx",
-      "args": ["-y", "github:doctorm333/promptpilot-mcp-server"],
+      "args": ["-y", "promptpilot-mcp-server"],
       "env": {
-        "POLLINATIONS_API_KEY": "your-key-here"
+        "POLLINATIONS_API_KEY": "sk_your_key_here"
       }
     }
   }
 }
 ```
 
-## Tools
+### Cursor
 
-### `list_models`
-List all available models with type (image/video/audio) and pricing.
-
-### `list_styles`
-List all styles, lighting, camera angles, moods, colors, and quality tags.
-
-### `build_prompt`
-Build an optimized prompt from a subject + style options.
-
-```
-build_prompt({subject: "mountain lake", style: "cinematic", lighting: "goldenHour"})
-→ "mountain lake, cinematic, movie still, dramatic composition, film grain, golden hour lighting, warm tones, sunset, magic hour"
+Add to `~/.cursor/mcp.json`:
+```json
+{
+  "mcpServers": {
+    "promptpilot": {
+      "command": "npx",
+      "args": ["-y", "promptpilot-mcp-server"]
+    }
+  }
+}
 ```
 
-### `generate_image`
-Generate an image. Returns a URL.
+### Windsurf
 
-| Parameter | Default | Description |
-|-----------|---------|-------------|
-| `prompt` | required | Text prompt |
-| `model` | `flux` | Model ID |
-| `width` | `1024` | 256–2048 |
-| `height` | `1024` | 256–2048 |
-| `enhance` | `true` | AI prompt enhancement |
-| `seed` | — | Reproducibility seed |
+Add to `~/.codeium/windsurf/mcp_config.json`:
+```json
+{
+  "mcpServers": {
+    "promptpilot": {
+      "command": "npx",
+      "args": ["-y", "promptpilot-mcp-server"]
+    }
+  }
+}
+```
 
-### `generate_video`
-Generate a video. Returns a URL.
+### VS Code (GitHub Copilot)
 
-| Parameter | Default | Description |
-|-----------|---------|-------------|
-| `prompt` | required | Text prompt |
-| `model` | `grok-video` | Model ID |
-| `aspect_ratio` | `1:1` | `1:1`, `16:9`, `9:16` |
-| `duration` | — | Seconds (model-dependent) |
-| `seed` | — | Reproducibility seed |
+Add to `.vscode/mcp.json` in your workspace:
+```json
+{
+  "servers": {
+    "promptpilot": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "promptpilot-mcp-server"]
+    }
+  }
+}
+```
 
-### `generate_audio`
-Generate speech or music. Returns a URL.
+### Docker
 
-| Parameter | Default | Description |
-|-----------|---------|-------------|
-| `prompt` | required | Text or music prompt |
-| `model` | `elevenlabs` | `elevenlabs` or `elevenmusic` |
-| `voice` | `nova` | Voice for elevenlabs: alloy, echo, fable, onyx, nova, shimmer |
+```bash
+docker run -i --rm \
+  -e POLLINATIONS_API_KEY=sk_your_key_here \
+  mcp/promptpilot-mcp-server
+```
 
-## Available Models
+---
 
-### Image (8 free)
-`flux`, `zimage`, `imagen-4`, `grok-imagine`, `klein`, `klein-large`, `gptimage`, `flux-2-dev`
+## Tools (8 total)
 
-### Image (7 paid)
-`seedream`, `kontext`, `nanobanana`, `seedream-pro`, `gptimage-large`, `nanobanana-pro`, `seedream5`
+| Tool | Description |
+|------|-------------|
+| `list_models` | List all image/video/audio models with pricing |
+| `list_styles` | List styles, lighting, camera, mood, color presets |
+| `build_prompt` | Build optimized prompt from structured inputs |
+| `generate_image` | Generate image (returns URL) |
+| `generate_video` | Generate video (returns URL) |
+| `generate_audio` | Generate speech or music (returns URL) |
+| `check_balance` | Check Pollinations API balance |
+| `generate_batch` | Generate up to 10 images in one call |
 
-### Video (1 free)
-`grok-video`
+---
 
-### Video (5 paid)
-`seedance`, `ltx-2`, `seedance-pro`, `wan`, `veo-3.1-fast`
+## Examples
 
-### Audio (2 paid)
-`elevenlabs`, `elevenmusic`
+**Generate an image:**
+> "Generate a cyberpunk cityscape at night using the flux model"
+
+**Batch generation:**
+> "Generate 5 product photos with different backgrounds"
+
+**Build + generate:**
+> "Build me a portrait prompt with dramatic lighting and golden hour mood, then generate it"
+
+**Check what's available:**
+> "What video models do you have and what are their prices?"
+
+---
+
+## REST API
+
+PromptPilot also offers a REST API for programmatic access from any language:
+
+```bash
+# Get your token at https://promptpilot.club/profile (REST API tab)
+
+curl https://promptpilot.club/api/v1/generate \
+  -H "Authorization: Bearer pp_your_token" \
+  -H "Content-Type: application/json" \
+  -d '{"prompt": "red panda in bamboo forest", "model": "flux", "fields": "url,model"}'
+```
+
+Endpoints:
+- `POST /api/v1/generate` — generate image/video/audio
+- `GET /api/v1/models` — list models with prices
+- `GET /api/v1/balance` — check balance
+- `GET /api/v1/schema` — OpenAPI schema
+- `GET /api/v1/AGENT_CONTEXT.md` — quick reference for agents
+
+---
+
+## Links
+
+- [promptpilot.club](https://promptpilot.club) — Web UI
+- [Pollinations AI](https://pollinations.ai) — Underlying model provider
+- [npm package](https://www.npmjs.com/package/promptpilot-mcp-server)
+- [GitHub](https://github.com/doctorm333/promptpilot-mcp-server)
 
 ## License
 

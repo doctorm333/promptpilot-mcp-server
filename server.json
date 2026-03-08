@@ -1,0 +1,18 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-07-09/server.schema.json",
+  "name": "io.github.doctorm333/promptpilot-mcp-server",
+  "description": "Generate images, video, and audio directly in your AI agent. Supports 20+ models via Pollinations AI: Flux, GPT-Image-1, Imagen 4, Grok, Seedance, ElevenLabs TTS, and more. Includes prompt builder with styles, lighting, camera, mood presets.",
+  "version": "1.2.0",
+  "packages": [
+    {
+      "registry_type": "npm",
+      "identifier": "promptpilot-mcp-server",
+      "version": "1.2.0"
+    }
+  ],
+  "links": {
+    "homepage": "https://promptpilot.club",
+    "repository": "https://github.com/doctorm333/promptpilot-mcp-server",
+    "documentation": "https://promptpilot.club/docs"
+  }
+}

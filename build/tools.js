@@ -68,6 +68,20 @@ export const generateAudioSchema = z.object({
         .default("nova")
         .describe("Voice (elevenlabs only)"),
 });
+export const checkBalanceSchema = z.object({});
+export const generateBatchSchema = z.object({
+    prompts: z
+        .array(z.object({
+        prompt: z.string().describe("Text prompt"),
+        model: z.string().default("flux").describe("Model ID"),
+        width: z.number().default(1024).optional(),
+        height: z.number().default(1024).optional(),
+        seed: z.number().optional(),
+    }))
+        .min(1)
+        .max(10)
+        .describe("Array of image prompts to generate (max 10)"),
+});
 // --- Tool handlers ---
 export function handleListModels() {
     const imageModels = getModelsByType("image");
@@ -261,6 +275,84 @@ export async function handleGenerateAudio(args) {
                     info,
                     `URL: ${url}`,
                 ].join("\n"),
+            },
+        ],
+    };
+}
+export async function handleCheckBalance() {
+    if (!API_KEY) {
+        return {
+            content: [
+                {
+                    type: "text",
+                    text: "No POLLINATIONS_API_KEY set. Balance check requires an API key.\nFree models (flux, turbo) work without a key.",
+                },
+            ],
+        };
+    }
+    try {
+        const res = await fetch("https://gen.pollinations.ai/account/balance", {
+            headers: { Authorization: `Bearer ${API_KEY}` },
+        });
+        if (!res.ok) {
+            return {
+                content: [{ type: "text", text: `Balance check failed: HTTP ${res.status}` }],
+                isError: true,
+            };
+        }
+        const data = await res.json();
+        const balance = data.balance ?? data.pollen ?? 0;
+        return {
+            content: [
+                {
+                    type: "text",
+                    text: [
+                        `Pollinations balance: ${balance} pollen`,
+                        `API key: ${API_KEY.slice(0, 6)}...${API_KEY.slice(-4)}`,
+                        "",
+                        "Free models (flux, turbo, wan2.6) use 0 pollen.",
+                        "Paid models: gptimage ~5, imagen-4 ~3, grok-imagine ~3, seedance-pro ~20 pollen/gen.",
+                    ].join("\n"),
+                },
+            ],
+        };
+    }
+    catch (err) {
+        return {
+            content: [{ type: "text", text: `Balance check error: ${err}` }],
+            isError: true,
+        };
+    }
+}
+export async function handleGenerateBatch(args) {
+    const results = [];
+    for (const item of args.prompts) {
+        const model = getModel(item.model);
+        if (!model || model.type !== "image") {
+            results.push(`❌ ${item.prompt.slice(0, 40)}... — unknown model: ${item.model}`);
+            continue;
+        }
+        if (!model.free && !API_KEY) {
+            results.push(`❌ ${item.prompt.slice(0, 40)}... — model "${item.model}" requires API key`);
+            continue;
+        }
+        const params = new URLSearchParams({
+            model: item.model,
+            width: String(item.width ?? 1024),
+            height: String(item.height ?? 1024),
+            nologo: "true",
+            seed: String(item.seed ?? Math.floor(Math.random() * 999999999)),
+        });
+        if (API_KEY)
+            params.set("token", API_KEY);
+        const url = `https://gen.pollinations.ai/image/${encodeURIComponent(item.prompt)}?${params}`;
+        results.push(`✅ ${item.prompt.slice(0, 50)}...\n   Model: ${model.name} | URL: ${url}`);
+    }
+    return {
+        content: [
+            {
+                type: "text",
+                text: [`Batch generation (${args.prompts.length} items):`, "", ...results].join("\n"),
             },
         ],
     };

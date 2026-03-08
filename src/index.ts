@@ -9,12 +9,16 @@ import {
   generateImageSchema,
   generateVideoSchema,
   generateAudioSchema,
+  checkBalanceSchema,
+  generateBatchSchema,
   handleListModels,
   handleListStyles,
   handleBuildPrompt,
   handleGenerateImage,
   handleGenerateVideo,
   handleGenerateAudio,
+  handleCheckBalance,
+  handleGenerateBatch,
 } from "./tools.js";
 
 const server = new McpServer({
@@ -62,6 +66,20 @@ server.tool(
   "Generate audio (speech or music) using Pollinations API. Returns a URL to the generated audio.",
   generateAudioSchema.shape,
   async (args) => handleGenerateAudio(args)
+);
+
+server.tool(
+  "check_balance",
+  "Check your Pollinations API balance (pollen). Shows remaining credits for paid models.",
+  checkBalanceSchema.shape,
+  async () => handleCheckBalance()
+);
+
+server.tool(
+  "generate_batch",
+  "Generate multiple images in one call (up to 10). More efficient than calling generate_image repeatedly.",
+  generateBatchSchema.shape,
+  async (args) => handleGenerateBatch(args)
 );
 
 async function main() {

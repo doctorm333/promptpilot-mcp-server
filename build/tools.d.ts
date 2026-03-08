@@ -80,6 +80,44 @@ export declare const generateAudioSchema: z.ZodObject<{
     model?: "elevenlabs" | "elevenmusic" | undefined;
     voice?: "alloy" | "echo" | "fable" | "onyx" | "nova" | "shimmer" | undefined;
 }>;
+export declare const checkBalanceSchema: z.ZodObject<{}, "strip", z.ZodTypeAny, {}, {}>;
+export declare const generateBatchSchema: z.ZodObject<{
+    prompts: z.ZodArray<z.ZodObject<{
+        prompt: z.ZodString;
+        model: z.ZodDefault<z.ZodString>;
+        width: z.ZodOptional<z.ZodDefault<z.ZodNumber>>;
+        height: z.ZodOptional<z.ZodDefault<z.ZodNumber>>;
+        seed: z.ZodOptional<z.ZodNumber>;
+    }, "strip", z.ZodTypeAny, {
+        prompt: string;
+        model: string;
+        width?: number | undefined;
+        height?: number | undefined;
+        seed?: number | undefined;
+    }, {
+        prompt: string;
+        model?: string | undefined;
+        width?: number | undefined;
+        height?: number | undefined;
+        seed?: number | undefined;
+    }>, "many">;
+}, "strip", z.ZodTypeAny, {
+    prompts: {
+        prompt: string;
+        model: string;
+        width?: number | undefined;
+        height?: number | undefined;
+        seed?: number | undefined;
+    }[];
+}, {
+    prompts: {
+        prompt: string;
+        model?: string | undefined;
+        width?: number | undefined;
+        height?: number | undefined;
+        seed?: number | undefined;
+    }[];
+}>;
 export declare function handleListModels(): {
     content: {
         type: "text";
@@ -136,4 +174,23 @@ export declare function handleGenerateAudio(args: z.infer<typeof generateAudioSc
         text: string;
     }[];
     isError?: undefined;
+}>;
+export declare function handleCheckBalance(): Promise<{
+    content: {
+        type: "text";
+        text: string;
+    }[];
+    isError?: undefined;
+} | {
+    content: {
+        type: "text";
+        text: string;
+    }[];
+    isError: boolean;
+}>;
+export declare function handleGenerateBatch(args: z.infer<typeof generateBatchSchema>): Promise<{
+    content: {
+        type: "text";
+        text: string;
+    }[];
 }>;

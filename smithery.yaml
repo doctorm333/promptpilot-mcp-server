@@ -1,0 +1,25 @@
+startCommand:
+  type: stdio
+  configSchema:
+    type: object
+    properties:
+      pollinationsApiKey:
+        type: string
+        title: Pollinations API Key
+        description: >
+          Your Pollinations API key (sk_...). Required for paid models (GPTImage,
+          Imagen-4, Grok Imagine, video, audio). Free models (Flux, Turbo) work without it.
+          Get yours at https://pollinations.ai
+    required: []
+  commandFunction: |
+    config => ({
+      command: 'node',
+      args: ['build/index.js'],
+      env: config.pollinationsApiKey
+        ? { POLLINATIONS_API_KEY: config.pollinationsApiKey }
+        : {}
+    })
+
+build:
+  command: npm run build
+  cwd: .

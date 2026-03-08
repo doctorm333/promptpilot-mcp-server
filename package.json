@@ -1,6 +1,6 @@
 {
   "name": "promptpilot-mcp-server",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "description": "MCP server for PromptPilot.club — generate images, video, and audio via Pollinations API",
   "type": "module",
   "main": "build/index.js",
@@ -18,14 +18,19 @@
   },
   "keywords": [
     "mcp",
+    "mcp-server",
     "model-context-protocol",
     "ai",
     "image-generation",
     "video-generation",
     "audio-generation",
+    "text-to-image",
     "pollinations",
+    "flux",
     "claude",
-    "promptpilot"
+    "cursor",
+    "promptpilot",
+    "llm-tools"
   ],
   "author": "Dr. AI (https://promptpilot.club)",
   "license": "MIT",
