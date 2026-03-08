@@ -179,35 +179,6 @@ export async function handleGenerateImage(
   const encodedPrompt = encodeURIComponent(args.prompt);
   const url = `https://gen.pollinations.ai/image/${encodedPrompt}?${params}`;
 
-  // Verify the URL works with a HEAD request
-  try {
-    const resp = await fetch(url, {
-      method: "HEAD",
-      headers: pollinationsHeaders(),
-    });
-    if (!resp.ok) {
-      return {
-        content: [
-          {
-            type: "text" as const,
-            text: `Pollinations API error: ${resp.status} ${resp.statusText}`,
-          },
-        ],
-        isError: true,
-      };
-    }
-  } catch (err) {
-    return {
-      content: [
-        {
-          type: "text" as const,
-          text: `Failed to reach Pollinations API: ${err}`,
-        },
-      ],
-      isError: true,
-    };
-  }
-
   return {
     content: [
       {
@@ -262,34 +233,6 @@ export async function handleGenerateVideo(
   const encodedPrompt = encodeURIComponent(args.prompt);
   const url = `https://gen.pollinations.ai/video/${encodedPrompt}?${params}`;
 
-  try {
-    const resp = await fetch(url, {
-      method: "HEAD",
-      headers: pollinationsHeaders(),
-    });
-    if (!resp.ok) {
-      return {
-        content: [
-          {
-            type: "text" as const,
-            text: `Pollinations API error: ${resp.status} ${resp.statusText}`,
-          },
-        ],
-        isError: true,
-      };
-    }
-  } catch (err) {
-    return {
-      content: [
-        {
-          type: "text" as const,
-          text: `Failed to reach Pollinations API: ${err}`,
-        },
-      ],
-      isError: true,
-    };
-  }
-
   return {
     content: [
       {
@@ -343,34 +286,6 @@ export async function handleGenerateAudio(
 
   const encodedPrompt = encodeURIComponent(args.prompt);
   const url = `https://gen.pollinations.ai/audio/${encodedPrompt}?${params}`;
-
-  try {
-    const resp = await fetch(url, {
-      method: "HEAD",
-      headers: pollinationsHeaders(),
-    });
-    if (!resp.ok) {
-      return {
-        content: [
-          {
-            type: "text" as const,
-            text: `Pollinations API error: ${resp.status} ${resp.statusText}`,
-          },
-        ],
-        isError: true,
-      };
-    }
-  } catch (err) {
-    return {
-      content: [
-        {
-          type: "text" as const,
-          text: `Failed to reach Pollinations API: ${err}`,
-        },
-      ],
-      isError: true,
-    };
-  }
 
   const info =
     args.model === "elevenlabs"

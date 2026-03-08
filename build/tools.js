@@ -148,35 +148,6 @@ export async function handleGenerateImage(args) {
         params.set("token", API_KEY);
     const encodedPrompt = encodeURIComponent(args.prompt);
     const url = `https://gen.pollinations.ai/image/${encodedPrompt}?${params}`;
-    // Verify the URL works with a HEAD request
-    try {
-        const resp = await fetch(url, {
-            method: "HEAD",
-            headers: pollinationsHeaders(),
-        });
-        if (!resp.ok) {
-            return {
-                content: [
-                    {
-                        type: "text",
-                        text: `Pollinations API error: ${resp.status} ${resp.statusText}`,
-                    },
-                ],
-                isError: true,
-            };
-        }
-    }
-    catch (err) {
-        return {
-            content: [
-                {
-                    type: "text",
-                    text: `Failed to reach Pollinations API: ${err}`,
-                },
-            ],
-            isError: true,
-        };
-    }
     return {
         content: [
             {
@@ -228,34 +199,6 @@ export async function handleGenerateVideo(args) {
         params.set("token", API_KEY);
     const encodedPrompt = encodeURIComponent(args.prompt);
     const url = `https://gen.pollinations.ai/video/${encodedPrompt}?${params}`;
-    try {
-        const resp = await fetch(url, {
-            method: "HEAD",
-            headers: pollinationsHeaders(),
-        });
-        if (!resp.ok) {
-            return {
-                content: [
-                    {
-                        type: "text",
-                        text: `Pollinations API error: ${resp.status} ${resp.statusText}`,
-                    },
-                ],
-                isError: true,
-            };
-        }
-    }
-    catch (err) {
-        return {
-            content: [
-                {
-                    type: "text",
-                    text: `Failed to reach Pollinations API: ${err}`,
-                },
-            ],
-            isError: true,
-        };
-    }
     return {
         content: [
             {
@@ -305,34 +248,6 @@ export async function handleGenerateAudio(args) {
         params.set("token", API_KEY);
     const encodedPrompt = encodeURIComponent(args.prompt);
     const url = `https://gen.pollinations.ai/audio/${encodedPrompt}?${params}`;
-    try {
-        const resp = await fetch(url, {
-            method: "HEAD",
-            headers: pollinationsHeaders(),
-        });
-        if (!resp.ok) {
-            return {
-                content: [
-                    {
-                        type: "text",
-                        text: `Pollinations API error: ${resp.status} ${resp.statusText}`,
-                    },
-                ],
-                isError: true,
-            };
-        }
-    }
-    catch (err) {
-        return {
-            content: [
-                {
-                    type: "text",
-                    text: `Failed to reach Pollinations API: ${err}`,
-                },
-            ],
-            isError: true,
-        };
-    }
     const info = args.model === "elevenlabs"
         ? `Voice: ${args.voice}`
         : "Type: Music generation";
