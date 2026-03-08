@@ -1,11 +1,11 @@
 {
-  "name": "promptpilot-mcp-server",
+  "name": "promptpilot-mcp",
   "version": "1.2.0",
   "description": "MCP server for PromptPilot.club — generate images, video, and audio via Pollinations API",
   "type": "module",
   "main": "build/index.js",
   "bin": {
-    "promptpilot-mcp-server": "build/index.js"
+    "promptpilot-mcp": "build/index.js"
   },
   "files": [
     "build",

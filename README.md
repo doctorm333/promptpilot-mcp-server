@@ -16,7 +16,7 @@ Generate images, video, and audio directly in Claude Code, Cursor, Windsurf, or 
   "mcpServers": {
     "promptpilot": {
       "command": "npx",
-      "args": ["-y", "promptpilot-mcp-server"]
+      "args": ["-y", "promptpilot-mcp"]
     }
   }
 }
@@ -28,7 +28,7 @@ With Pollinations API key (for paid models):
   "mcpServers": {
     "promptpilot": {
       "command": "npx",
-      "args": ["-y", "promptpilot-mcp-server"],
+      "args": ["-y", "promptpilot-mcp"],
       "env": {
         "POLLINATIONS_API_KEY": "sk_your_key_here"
       }
@@ -45,7 +45,7 @@ Add to `~/.cursor/mcp.json`:
   "mcpServers": {
     "promptpilot": {
       "command": "npx",
-      "args": ["-y", "promptpilot-mcp-server"]
+      "args": ["-y", "promptpilot-mcp"]
     }
   }
 }
@@ -59,7 +59,7 @@ Add to `~/.codeium/windsurf/mcp_config.json`:
   "mcpServers": {
     "promptpilot": {
       "command": "npx",
-      "args": ["-y", "promptpilot-mcp-server"]
+      "args": ["-y", "promptpilot-mcp"]
     }
   }
 }
@@ -74,7 +74,7 @@ Add to `.vscode/mcp.json` in your workspace:
     "promptpilot": {
       "type": "stdio",
       "command": "npx",
-      "args": ["-y", "promptpilot-mcp-server"]
+      "args": ["-y", "promptpilot-mcp"]
     }
   }
 }
@@ -85,7 +85,7 @@ Add to `.vscode/mcp.json` in your workspace:
 ```bash
 docker run -i --rm \
   -e POLLINATIONS_API_KEY=sk_your_key_here \
-  mcp/promptpilot-mcp-server
+  mcp/promptpilot-mcp
 ```
 
 ---
@@ -147,8 +147,8 @@ Endpoints:
 
 - [promptpilot.club](https://promptpilot.club) — Web UI
 - [Pollinations AI](https://pollinations.ai) — Underlying model provider
-- [npm package](https://www.npmjs.com/package/promptpilot-mcp-server)
-- [GitHub](https://github.com/doctorm333/promptpilot-mcp-server)
+- [npm package](https://www.npmjs.com/package/promptpilot-mcp)
+- [GitHub](https://github.com/doctorm333/promptpilot-mcp)
 
 ## License
 

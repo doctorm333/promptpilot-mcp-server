@@ -6,7 +6,7 @@
   "packages": [
     {
       "registry_type": "npm",
-      "identifier": "promptpilot-mcp-server",
+      "identifier": "promptpilot-mcp",
       "version": "1.2.0"
     }
   ],
