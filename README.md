@@ -5,6 +5,10 @@ Generate images, video, and audio directly in Claude Code, Cursor, Windsurf, or 
 **20+ models** — Flux, GPT-Image-1, Imagen 4, Grok Imagine, Seedance, ElevenLabs TTS, and more.
 **Free models** work without an API key. Paid models require a [Pollinations](https://pollinations.ai) key.
 
+<a href="https://glama.ai/mcp/servers/doctorm333/promptpilot-mcp-server">
+  <img width="380" height="200" src="https://glama.ai/mcp/servers/doctorm333/promptpilot-mcp-server/badge" alt="promptpilot-mcp-server MCP server" />
+</a>
+
 ---
 
 ## Installation
