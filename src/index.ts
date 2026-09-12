@@ -23,7 +23,7 @@ import {
 
 const server = new McpServer({
   name: "promptpilot",
-  version: "1.0.0",
+  version: "1.2.1",
 });
 
 server.tool(
